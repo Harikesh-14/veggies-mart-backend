@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
 const userRoutes = require('./routes/userRoutes')
+const sellerRoutes = require('./routes/sellerRoutes')
 
 const port = process.env.PORT || 5000
 const app = express()
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/user', userRoutes)
+app.use('/seller', sellerRoutes)
 
 app.listen(port, () => {
     console.log(`Your server is running at http://localhost:${port}`)
