@@ -12,7 +12,7 @@ const salt = bcrypt.genSaltSync(10)
 const secret = process.env.SECRET_KEY
 
 router.post('/register', async (req, res) => {
-    // const { firstName, lastName, dob, email, phoneNumber, address, password } = req.body
+    const { firstName, lastName, dob, email, phoneNumber, country, state, address, upiId, password } = req.body
     try {
         const userDoc = await userModel.create({
             firstName,
@@ -20,19 +20,12 @@ router.post('/register', async (req, res) => {
             dob,
             email,
             phoneNumber,
+            country,
+            state,
             address,
+            upiId,
             password: bcrypt.hashSync(password, salt),
         })
-        // const userDoc = await userModel.create({
-        //     "firstName": "John",
-        //     "lastName": "Doe",
-        //     "dob": "1990-01-01",
-        //     "email": "john@example.com",
-        //     "phoneNumber": "1234567890",
-        //     "address": "123 Main St",
-        //     "password": "password123"
-        //   }
-        //   )
         res.json(userDoc)
     } catch (err) {
         console.error(err);
@@ -57,8 +50,11 @@ router.post('/login', async (req, res) => {
                 firstName: userDoc.firstName,
                 lastName: userDoc.lastName,
                 dob: userDoc.dob,
+                country: userDoc.country,
+                state: userDoc.state,
                 address: userDoc.address,
                 phoneNumber: userDoc.phoneNumber,
+                upiId: userDoc.upiId,
                 id: userDoc._id,
             }
 
@@ -73,8 +69,11 @@ router.post('/login', async (req, res) => {
                     firstName: userDoc.firstName,
                     lastName: userDoc.lastName,
                     dob: userDoc.dob,
+                    country: userDoc.country,
+                    state: userDoc.state,
                     address: userDoc.address,
                     phoneNumber: userDoc.phoneNumber,
+                    upiId: userDoc.upiId,
                 })
             })
         } else {

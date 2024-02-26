@@ -23,9 +23,21 @@ const userSchema = new mongoose.Schema({
         require: true,
         unique: true
     },
+    country: {
+        type: String,
+        require: true,
+    },
+    state: {
+        type: String,
+        require: true,
+    },
     address: {
         type: String,
         require: true,
+    },
+    upiId: {
+        type: String,
+        require: true
     },
     password: {
         type: String,
